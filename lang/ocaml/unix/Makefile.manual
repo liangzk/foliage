@@ -1,0 +1,25 @@
+.SUFFIXES: .ml .cmo
+
+.ml.cmo: 
+	ocamlc -c $@  $<
+
+LDFLAGS=-custom unix.cma -cclib -lunix -ccopt -static
+
+PROGS=envvar ls fork httpclient
+
+all: $(PROGS)
+
+envvar: envvar.cmo
+	ocamlc $(LDFLAGS) -o $@ $<
+
+ls: ls.cmo
+	ocamlc $(LDFLAGS) -o $@ $<
+
+fork: fork.cmo
+	ocamlc $(LDFLAGS) -o $@ $<
+
+httpclient: httpclient.cmo
+	ocamlc $(LDFLAGS) -o $@ $<
+
+clean: 
+	rm -f *.cmi *.cmo $(PROGS)
